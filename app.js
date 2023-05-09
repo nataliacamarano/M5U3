@@ -5,10 +5,14 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 require("dotenv").config();
+var session = require("express-session");
+
 var pool = require("./models/db");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var loginRouter = require("./routes/admin/login");
+var adminRouter = require("./routes/admin/novedades");
 
 var app = express();
 
@@ -22,8 +26,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+/* Configuración de express-session */
+app.use(
+  session({
+    secret: "1234",
+    cookie: { maxAge: null },
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/admin/login", loginRouter);
+app.use("/admin/novedades", adminRouter);
 
 // Inicio de las consultas a la base de datos
 // SELECT
