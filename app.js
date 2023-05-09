@@ -36,10 +36,24 @@ app.use(
   })
 );
 
+/* Middelware de validación de sesión */
+secured = async (req, res, next) => {
+  try {
+    console.log(req.session.id_usuario);
+    if (req.session.id_usuario) {
+      next();
+    } else {
+      res.redirect("/admin/login");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin/login", loginRouter);
-app.use("/admin/novedades", adminRouter);
+app.use("/admin/novedades", secured, adminRouter);
 
 // Inicio de las consultas a la base de datos
 // SELECT
