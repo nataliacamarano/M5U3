@@ -33,12 +33,12 @@ app.use("/users", usersRouter);
 
 // INSERT
 // var nuevoEmpleado = {
-//   nombre: "Mateo",
-//   apellido: "Gutierrez",
-//   trabajo: "Programador",
-//   edad: 30,
-//   salario: 1000,
-//   mail: "mateo@test.com",
+//   nombre: "Natalia",
+//   apellido: "Camarano",
+//   trabajo: "Programadora",
+//   edad: 36,
+//   salario: 3000,
+//   mail: "natalia@test.com",
 // };
 
 // pool
