@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var fileUpload = require("express-fileupload");
+var cors = require("cors");
 
 require("dotenv").config();
 var session = require("express-session");
@@ -14,6 +15,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var loginRouter = require("./routes/admin/login");
 var adminRouter = require("./routes/admin/novedades");
+var apiRouter = require("./routes/api");
 
 var app = express();
 
@@ -62,48 +64,49 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/admin/login", loginRouter);
 app.use("/admin/novedades", secured, adminRouter);
+app.use("/api", cors(), apiRouter);
 
 // Inicio de las consultas a la base de datos
 // SELECT
 // pool.query("SELECT * FROM empleados").then(function (resultados) {
-//   console.log(resultados);
+// console.log(resultados);
 // });
 
 // INSERT
 // var nuevoEmpleado = {
-//   nombre: "Natalia",
-//   apellido: "Camarano",
-//   trabajo: "Programadora",
-//   edad: 36,
-//   salario: 3000,
-//   mail: "natalia@test.com",
+// nombre: "Natalia",
+// apellido: "Camarano",
+// trabajo: "Programadora",
+// edad: 36,
+// salario: 3000,
+// mail: "natalia@test.com",
 // };
 
 // pool
-//   .query("INSERT INTO empleados SET ?", [nuevoEmpleado])
-//   .then(function (resultados) {
-//     console.log(resultados);
-//   });
+// .query("INSERT INTO empleados SET ?", [nuevoEmpleado])
+// .then(function (resultados) {
+// console.log(resultados);
+// });
 
 // UPDATE
 // var idEmpleado = 1;
 // var nuevoSalario = 2000;
 // pool
-//   .query("UPDATE empleados SET salario = ? WHERE id_emp = ?", [
-//     nuevoSalario,
-//     idEmpleado,
-//   ])
-//   .then(function (resultados) {
-//     console.log(resultados);
-//   });
+// .query("UPDATE empleados SET salario = ? WHERE id_emp = ?", [
+// nuevoSalario,
+// idEmpleado,
+// ])
+// .then(function (resultados) {
+// console.log(resultados);
+// });
 
 // DELETE
 // var idEmpleado = 1;
 // pool
-//   .query("DELETE FROM empleados WHERE id_emp = ?", [idEmpleado])
-//   .then(function (resultados) {
-//     console.log(resultados);
-//   });
+// .query("DELETE FROM empleados WHERE id_emp = ?", [idEmpleado])
+// .then(function (resultados) {
+// console.log(resultados);
+// });
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
